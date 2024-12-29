@@ -55,7 +55,7 @@ const Layout = ({ children }) => {
           </div>
         </div>
       </nav>
-      <main>{children}</main>
+      <main className='max-w-7xl mx-auto px-4 sm:px-0'>{children}</main>
     </div>
   );
 };
