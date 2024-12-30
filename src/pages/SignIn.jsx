@@ -9,12 +9,11 @@ const SignIn = () => {
   const navigate = useNavigate();
   const { login, loading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const [isAdmin, setIsAdmin] = useState('');
 
   const handleSubmit = async (e) => {
    try {
     e.preventDefault();
-    const response = await login(email, password, isAdmin);
+    const response = await login(email, password);
     if(response)
     navigate('/');
    } catch (error) {
@@ -78,21 +77,7 @@ const SignIn = () => {
 								</div>
 							</div>
 						</div>
-						<div className="flex items-center mt-2">
-							<input
-								id="admin-check"
-								type="checkbox"
-								className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-								checked={isAdmin}
-								onChange={() => setIsAdmin(!isAdmin)}
-							/>
-							<label
-								htmlFor="admin-check"
-								className="ml-2 block text-sm text-gray-900 font-semibold"
-							>
-								Sign in as Admin
-							</label>
-						</div>
+						
 					</div>
 					<div>
 						<button

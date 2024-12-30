@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
         const decodedToken = jwtDecode(token);
         setUser({ 
           id: decodedToken._id, 
-          role: decodedToken.role,
+          role: 'USER',
           token 
         });
       } catch (error) {
@@ -28,20 +28,20 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = async (email, password, isAdmin = false) => {
+  const login = async (email, password) => {
     setLoading(true);
     try {
-      const response = await axios.post(`${host}/auth/signin`, { email, password, role: isAdmin ? 'ADMIN' : 'USER' });
+      const response = await axios.post(`${host}/auth/signin`, { email, password, role:  'USER' });
       
       const { data } = response.data;
       const decodedToken = jwtDecode(data);
       localStorage.setItem('token', data);
       setUser({ 
         id: decodedToken._id, 
-        role: decodedToken.role,
+        role: 'USER',
         token: data
       });
-      toast.success(`Logged in ${isAdmin ? 'as admin' : ''} successfully!`);
+      toast.success(`Logged in successfully!`);
       return true
     } catch (error) {
       toast.error(error.response.data.message || 'Failed to log in. Please try again.');

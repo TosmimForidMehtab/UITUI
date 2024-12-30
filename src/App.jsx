@@ -6,21 +6,6 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
-import Dashboard from './pages/Dashboard';
-
-const ProtectedRoute = ({ children, adminOnly = false }) => {
-  const { user, loading } = useAuth();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (!user || (adminOnly && user.role !== 'ADMIN')) {
-    return <Navigate to="/signin" replace />;
-  }
-
-  return children;
-};
 
 const App = () => {
   return (
@@ -31,14 +16,6 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route
-              path="/dashboard"
-              element={
-                <ProtectedRoute adminOnly>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
           </Routes>
         </Layout>
       </Router>
