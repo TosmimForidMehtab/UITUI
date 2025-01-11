@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }) => {
 				id: decodedToken._id,
 				role: "USER",
 				token: data,
+				email: decodedToken?.email,
 			});
 			toast.success(`Logged in successfully!`);
 			return true;
