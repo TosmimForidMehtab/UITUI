@@ -47,7 +47,7 @@ const Layout = ({ children }) => {
 									className="cursor-pointer"
 									onClick={toggleDrawer(true)}
 								>
-									{user.email[0].toUpperCase()}
+									{user?.email[0]?.toUpperCase()}
 								</Avatar>
 							) : (
 								<>
