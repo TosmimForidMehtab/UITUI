@@ -36,7 +36,7 @@ const ProfileDrawer = ({ onClose, logout }) => {
 					<ListItemText primary="Wallet" />
 				</ListItem>
 				<Divider />
-				<ListItem button onClick={logout}>
+				<ListItem button onClick={logout} className="cursor-pointer">
 					<ListItemIcon>
 						<ExitToApp />
 					</ListItemIcon>
