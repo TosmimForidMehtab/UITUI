@@ -130,7 +130,7 @@ export default function Plans() {
 		};
 
 		checkActivePlan();
-	}, [user]);
+	}, [user, activePlan]);
 
 	const handleChoosePlan = async (planId) => {
 		if (!user) {
