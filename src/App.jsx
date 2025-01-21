@@ -13,6 +13,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Profile from "./components/Profile";
 import Wallet from "./components/Wallet";
+import Plans from "./components/Plans";
 import { WalletProvider } from "./contexts/WalletContext";
 
 const ProtectedRoute = ({ children, adminOnly = false }) => {
@@ -56,6 +57,8 @@ const App = () => {
 									</ProtectedRoute>
 								}
 							/>
+
+							<Route path="/plans" element={<Plans />} />
 						</Routes>
 					</Layout>
 				</Router>

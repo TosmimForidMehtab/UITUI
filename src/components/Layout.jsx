@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { Drawer, Avatar } from "@mui/material";
+import { Drawer, Avatar, Button } from "@mui/material";
 import ProfileDrawer from "./ProfileDrawer";
+import { useLocation } from "react-router-dom";
 
 const Layout = ({ children }) => {
 	const { user, logout } = useAuth();
 	const [drawerOpen, setDrawerOpen] = useState(false);
+	const location = useLocation();
 
 	const toggleDrawer = (open) => (event) => {
 		if (
@@ -41,7 +43,21 @@ const Layout = ({ children }) => {
 								</div>
 							</Link>
 						</div>
-						<div className="flex items-center">
+						<div className="flex items-center gap-10">
+							<Link
+								to="/plans"
+								className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium"
+							>
+								<Button
+									variant={`${
+										location.pathname === "/plans"
+											? "outlined"
+											: "contained"
+									}`}
+								>
+									Plans
+								</Button>
+							</Link>
 							{user ? (
 								<Avatar
 									className="cursor-pointer"
