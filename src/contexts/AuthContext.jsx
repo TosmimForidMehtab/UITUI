@@ -66,14 +66,17 @@ export const AuthProvider = ({ children }) => {
 		toast.info("Logged out successfully.");
 	};
 
-	const signup = async (email, password) => {
+	const signup = async (email, password, referralCode = "") => {
 		setLoading(true);
 		try {
-			const response = await axios.post(`${host}/auth/signup`, {
-				email,
-				password,
-				role: "USER",
-			});
+			const response = await axios.post(
+				`${host}/auth/signup?referralCode=${referralCode}`,
+				{
+					email,
+					password,
+					role: "USER",
+				}
+			);
 			toast.success("Signed up successfully! Please log in.");
 			return true;
 		} catch (error) {
