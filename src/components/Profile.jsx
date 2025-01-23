@@ -113,7 +113,8 @@ const Profile = () => {
 									<span className="font-semibold">
 										Price:
 									</span>{" "}
-									${planDetails.plan.price}/month
+									₹{planDetails.plan.price}/
+									{planDetails.plan.duration}
 								</Typography>
 								<Typography variant="body1">
 									<span className="font-semibold">
