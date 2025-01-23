@@ -113,8 +113,7 @@ const Profile = () => {
 									<span className="font-semibold">
 										Price:
 									</span>{" "}
-									₹{planDetails.plan.price}/
-									{planDetails.plan.duration}
+									₹{planDetails.plan.price}
 								</Typography>
 								<Typography variant="body1">
 									<span className="font-semibold">
