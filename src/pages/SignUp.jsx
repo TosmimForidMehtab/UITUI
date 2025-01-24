@@ -10,12 +10,12 @@ const SignUp = () => {
 	const navigate = useNavigate();
 	const { signup, loading } = useAuth();
 	const [searchParams] = useSearchParams();
-	const referralCode = searchParams.get("refer");
+	const [refCode, setRefCode] = useState(searchParams.get("refer"));
 
 	const handleSubmit = async (e) => {
 		try {
 			e.preventDefault();
-			const response = await signup(email, password, referralCode);
+			const response = await signup(email, password, refCode);
 			if (response) navigate("/signin");
 		} catch (error) {
 			console.error(error);
@@ -63,6 +63,20 @@ const SignUp = () => {
 								placeholder="Password"
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
+							/>
+						</div>
+						<div>
+							<label htmlFor="refCode" className="text-sm">
+								Referral Code (If any)
+							</label>
+							<input
+								id="refCode"
+								name="refCode"
+								type="refCode"
+								className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+								placeholder="Referral Code"
+								value={refCode}
+								onChange={(e) => setRefCode(e.target.value)}
 							/>
 						</div>
 					</div>
