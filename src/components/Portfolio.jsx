@@ -86,7 +86,7 @@ const Portfolio = () => {
 							<Grid container spacing={6}>
 								<Grid item xs={12} md={6}>
 									<Card className="h-full bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-										<CardContent className="h-full flex flex-col justify-between bg-gradient-to-r from-blue-500 to-purple-600">
+										<CardContent className="h-full flex flex-col justify-between bg-gradient-to-r from-blue-500 to-purple-600 text-white">
 											<Box>
 												<Box className="flex items-center mb-4">
 													<img
