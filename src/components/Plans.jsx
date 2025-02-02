@@ -104,7 +104,7 @@ export default function Plans() {
 		const fetchPlans = async () => {
 			try {
 				const res = await axios.get(`${host}/plans`);
-				setPlans(res?.data?.data);
+				setPlans(res?.data?.data?.plans);
 			} catch (err) {
 				setError("Failed to load plans. Please try again later.");
 			} finally {

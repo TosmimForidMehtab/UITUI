@@ -46,20 +46,6 @@ const Layout = ({ children }) => {
 						<div className="flex items-center gap-10">
 							{user ? (
 								<>
-									<Link
-										to="/plans"
-										className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium"
-									>
-										<Button
-											variant={`${
-												location.pathname === "/plans"
-													? "outlined"
-													: "contained"
-											}`}
-										>
-											Plans
-										</Button>
-									</Link>
 									<Avatar
 										className="cursor-pointer"
 										onClick={toggleDrawer(true)}

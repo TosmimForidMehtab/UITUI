@@ -6,7 +6,12 @@ import {
 	ListItemText,
 	Divider,
 } from "@mui/material";
-import { Person, AccountBalanceWallet, ExitToApp } from "@mui/icons-material";
+import {
+	Person,
+	AccountBalanceWallet,
+	ExitToApp,
+	Payment,
+} from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 const ProfileDrawer = ({ onClose, logout }) => {
@@ -34,6 +39,17 @@ const ProfileDrawer = ({ onClose, logout }) => {
 						<AccountBalanceWallet />
 					</ListItemIcon>
 					<ListItemText primary="Wallet" />
+				</ListItem>
+				<ListItem
+					button
+					component={Link}
+					to="/portfolio"
+					onClick={onClose}
+				>
+					<ListItemIcon>
+						<Payment />
+					</ListItemIcon>
+					<ListItemText primary="Portfolio" />
 				</ListItem>
 				<Divider />
 				<ListItem button onClick={logout} className="cursor-pointer">

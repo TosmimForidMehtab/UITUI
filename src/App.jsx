@@ -15,6 +15,7 @@ import Profile from "./components/Profile";
 import Wallet from "./components/Wallet";
 import Plans from "./components/Plans";
 import { WalletProvider } from "./contexts/WalletContext";
+import Portfolio from "./components/Portfolio";
 
 const ProtectedRoute = ({ children, adminOnly = false }) => {
 	const { user, loading } = useAuth();
@@ -37,7 +38,6 @@ const App = () => {
 				<Router>
 					<Layout>
 						<Routes>
-							<Route path="/" element={<Home />} />
 							<Route path="/signin" element={<SignIn />} />
 							<Route path="/signup" element={<SignUp />} />
 							<Route
@@ -59,10 +59,19 @@ const App = () => {
 							/>
 
 							<Route
-								path="/plans"
+								path="/"
 								element={
 									<ProtectedRoute>
 										<Plans />
+									</ProtectedRoute>
+								}
+							/>
+
+							<Route
+								path="/portfolio"
+								element={
+									<ProtectedRoute>
+										<Portfolio />
 									</ProtectedRoute>
 								}
 							/>
