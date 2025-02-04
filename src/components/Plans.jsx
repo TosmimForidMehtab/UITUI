@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
@@ -24,6 +24,7 @@ const PlanCard = ({ plan, onChoosePlan, isPopular, activePlan }) => (
 	<motion.div
 		whileHover={{ scale: 1.05 }}
 		transition={{ type: "spring", stiffness: 100 }}
+		className="w-full"
 	>
 		<Card
 			className={`flex flex-col h-full shadow-lg rounded-lg overflow-hidden ${
@@ -31,17 +32,15 @@ const PlanCard = ({ plan, onChoosePlan, isPopular, activePlan }) => (
 			}`}
 			elevation={isPopular ? 8 : 2}
 		>
-			{isPopular && (
-				<Chip
-					label="Most Popular"
-					color="primary"
-					variant="outlined"
-					size="small"
-					className="mt-2 w-[50%] mx-auto"
-				/>
-			)}
 			<CardContent className="flex-grow flex flex-col justify-between p-6">
 				<div>
+					<div className="w-20 h-20 mx-auto mb-4">
+						<img
+							src={plan.logo || "/placeholder.svg"}
+							alt={plan.name}
+							className="w-full h-full object-cover rounded-full"
+						/>
+					</div>
 					<Typography
 						variant="h4"
 						component="h2"
@@ -55,16 +54,13 @@ const PlanCard = ({ plan, onChoosePlan, isPopular, activePlan }) => (
 						className="text-center mb-4 text-indigo-600"
 					>
 						₹{plan.price}
-						{plan.duration > 0 && (
-							<Typography
-								variant="subtitle1"
-								component="span"
-								className="text-gray-500"
-							>
-								/{plan.duration} month
-								{plan.duration > 1 ? "s" : ""}
-							</Typography>
-						)}
+						<Typography
+							variant="subtitle1"
+							component="span"
+							className="text-gray-500"
+						>
+							/{plan.duration} days
+						</Typography>
 					</Typography>
 					<Typography
 						variant="body1"
@@ -72,6 +68,20 @@ const PlanCard = ({ plan, onChoosePlan, isPopular, activePlan }) => (
 					>
 						{plan.description}
 					</Typography>
+					<div className="space-y-2 mb-6">
+						<div className="flex justify-between">
+							<span>Return Percentage:</span>
+							<span className="font-semibold">
+								{plan.returnPercentage}%
+							</span>
+						</div>
+						<div className="flex justify-between">
+							<span>Total Return Amount:</span>
+							<span className="font-semibold">
+								₹{plan.totalReturnAmount}
+							</span>
+						</div>
+					</div>
 				</div>
 				<Button
 					variant="contained"
@@ -82,8 +92,9 @@ const PlanCard = ({ plan, onChoosePlan, isPopular, activePlan }) => (
 					onClick={() => onChoosePlan(plan._id)}
 					disabled={activePlan?.plan?._id === plan._id}
 				>
-					{activePlan?.plan?._id === plan._id ? "Active" : "Choose"}{" "}
-					Plan
+					{activePlan?.plan?._id === plan._id
+						? "Active"
+						: "Choose Plan"}
 				</Button>
 			</CardContent>
 		</Card>
@@ -159,9 +170,7 @@ export default function Plans() {
 			);
 			toast.success("Plan activated successfully!");
 		} catch (err) {
-			toast.error(
-				err.response.data.message || "Failed to activate plan."
-			);
+			toast.error("Failed to activate plan.");
 		}
 	};
 
@@ -206,7 +215,7 @@ export default function Plans() {
 			>
 				Select the perfect plan for your needs
 			</Typography>
-			<Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
+			<Box className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-4">
 				{plans.map((plan, index) => (
 					<PlanCard
 						key={plan._id}
