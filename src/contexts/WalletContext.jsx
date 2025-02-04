@@ -19,7 +19,6 @@ export const WalletProvider = ({ children }) => {
 			},
 		});
 		const { data } = response.data;
-		console.log(data);
 		setBalance(data?.wallet?.balance || 0);
 		setPrefilledAmounts(
 			data?.denominations
@@ -57,7 +56,7 @@ export const WalletProvider = ({ children }) => {
 	const withdraw = useCallback(
 		async (amount) => {
 			try {
-				if (amount > 0 && amount <= balance) {
+				if (amount > 0 && Number(amount) <= Number(balance / 2)) {
 					const response = await axios.post(
 						`${host}/transactions`,
 						{ amount, type: "WITHDRAWAL" },

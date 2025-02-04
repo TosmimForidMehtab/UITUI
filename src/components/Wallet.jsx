@@ -111,8 +111,16 @@ const DepositModal = ({ open, onClose, amount, onDeposit }) => {
 	);
 };
 
-const WithdrawModal = ({ open, onClose, amount, onWithdraw }) => {
+const WithdrawModal = ({ open, onClose, amount, onWithdraw, balance }) => {
 	const handleWithdraw = () => {
+		// if amount is greater than 50% of balance, then withdraw not allowed
+		if (Number(amount) > Number(balance / 2)) {
+			toast.error(
+				"Withdrawal amount cannot be greater than 50% of balance"
+			);
+			onClose();
+			return;
+		}
 		onWithdraw();
 		toast.success("Withdrawal request sent!");
 	};
@@ -302,6 +310,7 @@ const Wallet = () => {
 				onClose={() => setIsWithdrawModalOpen(false)}
 				amount={withdrawAmount}
 				onWithdraw={handleWithdraw}
+				balance={balance}
 			/>
 		</div>
 	);

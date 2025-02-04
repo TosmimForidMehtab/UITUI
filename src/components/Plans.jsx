@@ -78,7 +78,11 @@ const PlanCard = ({ plan, onChoosePlan, isPopular, activePlan }) => (
 						<div className="flex justify-between">
 							<span>Total Return Amount:</span>
 							<span className="font-semibold">
-								₹{plan.totalReturnAmount}
+								₹
+								{plan.totalReturnAmount ||
+									Number(plan.price * plan.returnPercentage) /
+										100 +
+										Number(plan.price)}
 							</span>
 						</div>
 					</div>
