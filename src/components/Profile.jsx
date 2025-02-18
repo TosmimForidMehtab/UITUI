@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import axios from "axios";
 import {
@@ -17,7 +17,7 @@ const host = import.meta.env.VITE_API_URL;
 const Profile = () => {
 	const { user } = useAuth();
 	const [openSnackbar, setOpenSnackbar] = useState(false);
-	const [planDetails, setPlanDetails] = useState(null);
+	const [planDetails, setPlanDetails] = useState([]);
 	const [referralData, setReferralData] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
@@ -41,7 +41,7 @@ const Profile = () => {
 						},
 					}),
 				]);
-				setPlanDetails(planResponse?.data?.data);
+				setPlanDetails(planResponse?.data?.data || []);
 				setReferralData(referralResponse?.data?.data);
 			} catch (err) {
 				setError("Failed to fetch data. Please try again later.");
@@ -95,46 +95,53 @@ const Profile = () => {
 				</CardContent>
 			</Card>
 
-			{planDetails && (
-				<Card className="mb-6">
-					<CardHeader title="Active Plan Details" />
-					<CardContent>
-						{!planDetails?.plan?.name ? (
-							<div>No Active Plans</div>
-						) : (
+			{planDetails.length > 0 ? (
+				planDetails.map((plan, index) => (
+					<Card key={index} className="mb-6">
+						<CardHeader
+							title={`Active Plan ${index + 1} Details`}
+						/>
+						<CardContent>
 							<div className="space-y-2">
 								<Typography variant="body1">
 									<span className="font-semibold">
 										Plan Name:
 									</span>{" "}
-									{planDetails.plan.name}
+									{plan?.plan?.name || "N/A"}
 								</Typography>
 								<Typography variant="body1">
 									<span className="font-semibold">
 										Price:
 									</span>{" "}
-									₹{planDetails.plan.price}
+									₹{plan?.plan?.price || "N/A"}
 								</Typography>
 								<Typography variant="body1">
 									<span className="font-semibold">
 										Description:
 									</span>{" "}
-									{planDetails.plan.description}
+									{plan?.plan?.description || "N/A"}
 								</Typography>
 								<Typography variant="body1">
 									<span className="font-semibold">
 										Duration:
 									</span>{" "}
-									{planDetails.plan.duration} month(s)
+									{plan?.plan?.duration || "N/A"} day(s)
 								</Typography>
 								<Typography variant="body1">
 									<span className="font-semibold">
 										Remaining Days:
 									</span>{" "}
-									{planDetails.remainingDays}
+									{plan?.remainingDays || "N/A"}
 								</Typography>
 							</div>
-						)}
+						</CardContent>
+					</Card>
+				))
+			) : (
+				<Card className="mb-6">
+					<CardHeader title="Active Plan Details" />
+					<CardContent>
+						<div>No Active Plans</div>
 					</CardContent>
 				</Card>
 			)}
@@ -153,7 +160,7 @@ const Profile = () => {
 								</Typography>
 								<div className="flex space-x-2">
 									<TextField
-										value={referralData.referCode}
+										value={referralData?.referCode || ""}
 										InputProps={{ readOnly: true }}
 										fullWidth
 									/>
@@ -162,7 +169,7 @@ const Profile = () => {
 										startIcon={<ContentCopyIcon />}
 										onClick={() =>
 											copyToClipboard(
-												referralData.referCode
+												referralData?.referCode || ""
 											)
 										}
 									>
@@ -179,7 +186,7 @@ const Profile = () => {
 								</Typography>
 								<div className="flex space-x-2">
 									<TextField
-										value={referralData.referralUrl}
+										value={referralData?.referralUrl || ""}
 										InputProps={{ readOnly: true }}
 										fullWidth
 									/>
@@ -188,7 +195,7 @@ const Profile = () => {
 										startIcon={<ContentCopyIcon />}
 										onClick={() =>
 											copyToClipboard(
-												referralData.referralUrl
+												referralData?.referralUrl || ""
 											)
 										}
 									>
